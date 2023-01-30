@@ -30,14 +30,14 @@ namespace ProductsApp.Implementation
                 var uri = new Uri($"{_baseUrl}/{ProductApiConstants.GetProduct}");
                 var apiResponse = await _httpClient.GetAsync<RootProduct>(uri);
 
-                if (apiResponse != null)
+                if (apiResponse != null && apiResponse.Products?.Count > 0)
                 {
-                    var mappedProducts = _mapper.Map<List<Product>>(apiResponse.Products);
+                    var mappedProducts = _mapper.Map<List<Product>>(apiResponse.Products.Where(x => x.DiscountPercentage > 10).ToList());
 
                     var response = new ProductViewModel
                     {
                         Products = mappedProducts,
-                        TrendingBrands = apiResponse.Products.Where(x => x.Rating > 4.8).Select(x => x.Title).ToList()
+                        TrendingBrands = apiResponse.Products.Where(x => x.Rating > 4.8).Select(x => x.Brand).ToList()
                     };
 
                     return response;
