@@ -107,6 +107,7 @@ namespace ProductApp.Web.Tests
             configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(myConfiguration)
                 .Build();
+
             var productFacade = new ProductApiFacade(configuration, httpClientHelper.Object, mapper, productLogger.Object);
 
             var controller = new HomeController(homelogger.Object, productFacade);

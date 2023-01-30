@@ -27,6 +27,11 @@ namespace ProductsApp.Implementation
         {
             try
             {
+                if(string.IsNullOrEmpty(_baseUrl))
+                {
+                    throw new Exception("Null or Empty baseUrl");
+                }
+
                 var uri = new Uri($"{_baseUrl}/{ProductApiConstants.GetProduct}");
                 var apiResponse = await _httpClient.GetAsync<RootProduct>(uri);
 
