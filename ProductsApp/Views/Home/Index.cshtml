@@ -1,0 +1,68 @@
+﻿@model ProductsApp.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/css/home.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <div class="desktop-display">
+        @if (Model != null && Model.Products.Count > 1)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Brand</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            <td>@product.Title</td>
+                            <td>@product.Brand</td>
+                            <td>@product.Price</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <b>Trending brand: </b> @string.Join(",",Model.TrendingBrands)
+        }
+        else
+        {
+            <p>No Products Found</p>
+        }
+    </div>
+
+    <div class="mobile-display">
+        @if (Model != null && Model.Products.Count > 1)
+        {
+            foreach (var product in Model.Products)
+            {
+                <div class="card">
+                    <p> <b>Title</b> </p>
+                    <p>@product.Title</p>
+                    <p> <b>Brand</b> </p>
+                    <p>@product.Brand</p>
+                    <p> <b>Price</b> </p>
+                    <p>@product.Price</p>
+                </div>
+
+                <hr />
+            }
+            <b>Trending brand: </b> @string.Join(",",Model.TrendingBrands)
+        }
+        else
+        {
+            <p>No Products Found</p>
+        }
+    </div>
+</div>
+
